@@ -29,6 +29,7 @@ function renderAlumn({ name, grades, average }) {
             const alumn = gradebook.students.find(i => i.name === name);
             alumn.grades.push(nuevaNota);
             alumn.average = alumn.grades.reduce((total, num) => total + num, 0) / alumn.grades.length;
+            
             renderListAlumn(gradebook);
         }
     });
@@ -37,7 +38,9 @@ function renderAlumn({ name, grades, average }) {
     li.appendChild(divNotas);
     li.appendChild(divPromedio);
     li.appendChild(btnAddNota);
-
+    if(average >= 8){
+        li.className = "sobresaliente";
+    }
     ul.appendChild(li);
 }
 function renderListAlumn(gradebook){
@@ -46,7 +49,7 @@ function renderListAlumn(gradebook){
 }
 function addNewAlumn(name, grades=[], average=0){
     const alumn = gradebook.students.find(alumn => alumn.name.toLowerCase() === name.toLowerCase());
-    const response = "notAdded";
+    let response = "notAdded";
     if(alumn) {
         response = "repeat";
     }else {
